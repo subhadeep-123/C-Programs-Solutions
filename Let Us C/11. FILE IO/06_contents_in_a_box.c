@@ -47,6 +47,7 @@ int main()
             j++;
         }
     }
+    fclose(fp);
     getkey();
     system("cls");
     gotoxy(3, 10);
