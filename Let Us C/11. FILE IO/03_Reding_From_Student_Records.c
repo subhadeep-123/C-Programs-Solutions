@@ -20,6 +20,7 @@ int main()
     }
     while (fscanf(fp, "%s %d", &d.name, &d.age) != EOF)
         printf("%s %d \n", d.name, d.age);
+    fclose(fp);
     printf("\nEnter anything to exit..");
     getch();
     return 0;
