@@ -13,11 +13,11 @@ struct employee
     char empname[20];
     struct date join_date;
     float salary;
-} e;
+};
 void display(char *);
 void add_info(char *, char *, struct date, float);
-void sortbydof(char *);
-void swap(struct employee **, struct employee *);
+void sortbydoj(char *);
+void swap(struct employee *, struct employee *);
 int main()
 {
     //Changing the Directory
@@ -53,6 +53,7 @@ int main()
 void display(char *file)
 {
     FILE *fs;
+    struct employee e;
     fs = fopen(file, "rb");
     if (fs == NULL)
     {
@@ -73,10 +74,71 @@ void display(char *file)
 void add_info(char *code, char *name, struct date jdate, float sal)
 {
     FILE *fs;
-    fs = fopen("Rocord.dat", "rb");
+    struct employee e;
+    fs = fopen("Record.dat", "rb+");
     if (fs == NULL)
+        fs = fopen("Record.dat", "wb");
+    strcpy(e.empcode, code);
+    strcpy(e.empname, name);
+    e.join_date = jdate;
+    e.salary = sal;
+    fseek(fs, 0, SEEK_END);
+    fwrite(&e, sizeof(e), 1, fs);
+    fclose(fs);
+}
+void swap(struct employee *a, struct employee *b)
+{
+    struct employee temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void sortbydoj(char *file)
+{
+    int i = 0, j, count;
+    FILE *fp1;
+    struct employee e[100], temp;
+    fp1 = fopen(file, "rb");
+    if (fp1 == NULL)
     {
-        puts("Cannont open the File!!");
+        puts("\nUnable to open file or the file do not exist.");
         exit(1);
+    }
+    while (1)
+    {
+        /*Saving the data in the array of structures*/
+        if (fread(&e[i], sizeof(e[i]), 1, fp1) != 1)
+            break;
+        i++;
+    }
+    /*Total number of records*/
+    count = 1;
+
+    for (i = 0; i < count; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            if (e[i].join_date.y >= e[j].join_date.y)
+                if (e[i].join_date.y > e[j].join_date.y)
+                    swap(&e[i], &e[j]);
+                else if (e[i].join_date.m >= e[j].join_date.m)
+                    if (e[i].join_date.m > e[j].join_date.m)
+                        swap(&e[i], &e[j]);
+                    else if (e[i].join_date.d >= e[j].join_date.d)
+                        swap(&e[i], &e[j]);
+        }
+    }
+
+    /*Printing the array after sorting by date of joining*/
+
+    printf("Employee Id\tName\t\tdd  mm  yyyy\tSalary\n");
+    for (i = 0; i < count; i++)
+    {
+        printf("\n%-12s", e[i].empcode);
+        printf("\t%s", e[i].empname);
+        printf("\t % 2d", e[i].join_date.d);
+        printf("% 2d", e[i].join_date.m);
+        printf("% 2d", e[i].join_date.y);
+        printf("\t%2.2f\n", e[i].salary);
     }
 }

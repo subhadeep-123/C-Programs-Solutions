@@ -23,13 +23,15 @@ void add_info(int a_num, char *name, float bacl)
     if (fs == NULL)
     {
         fs = fopen("CUSTOMER.DAT", "wb");
-        puts("CUSTOMER.DAT cannot be opened!");
+        puts("(ADD_INFO)CUSTOMER.DAT cannot be opened!");
         exit(1);
     }
+
     acc_holder.accno = a_num;
     strcpy(acc_holder.name, name);
     acc_holder.balance = bacl;
     fwrite(&acc_holder, sizeof(acc_holder), 1, fs);
+    // fseek(fs, 0, SEEK_END);
     fclose(fs);
 }
 void display(char *file)
@@ -51,7 +53,6 @@ void display(char *file)
         printf("%f", acc_holder.balance);
     }
     fclose(fs);
-    getch();
 }
 void update(int accno, char trans_type, float amount)
 {
