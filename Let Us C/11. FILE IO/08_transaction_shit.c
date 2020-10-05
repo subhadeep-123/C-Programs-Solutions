@@ -45,18 +45,20 @@ void display(char *file)
     while (fread(&acc_holder, sizeof(acc_holder), 1, fs) == 1)
     {
         // printf("%d\n%s\n%f \n", acc_holder.accno, acc_holder.name, acc_holder.balance);
-        printf("\n%d", acc_holder.accno);
-        printf("\n%s", acc_holder.name);
-        printf("\n%f", acc_holder.balance);
+        printf("\n");
+        printf("%d", acc_holder.accno);
+        printf("%s", acc_holder.name);
+        printf("%f", acc_holder.balance);
     }
     fclose(fs);
+    getch();
 }
 void update(int accno, char trans_type, float amount)
 {
     FILE *fs, *temp;
     struct customer acc_holder;
     fs = fopen("CUSTOMER.DAT", "rb");
-    temp = fopen("TEMP.DAT", wb);
+    temp = fopen("TEMP.DAT", "wb");
     if (fs == NULL)
     {
         puts("CUSTOMER.DAT cannot be opened!");
@@ -85,7 +87,7 @@ void update(int accno, char trans_type, float amount)
             default:
                 puts("Wrong transaction type!!");
                 puts("\nTry Again!!");
-                fclose(fp);
+                fclose(fs);
                 fclose(temp);
                 remove("TEMP.DAT");
                 break;
@@ -93,7 +95,7 @@ void update(int accno, char trans_type, float amount)
         }
         fwrite(&acc_holder, sizeof(acc_holder), 1, temp);
     }
-    fclose(fp);
+    fclose(fs);
     fclose(temp);
     remove("CUSTOMER.DAT");
     rename("TEMP.DAT", "CUSTOMER.DAT");
@@ -112,8 +114,8 @@ start:
     while (1)
     {
         printf("1. Add Info\n");
-        printf("2. Update\n");
-        printf("3. Display\n");
+        printf("2. Display\n");
+        printf("3. Update\n");
         printf("4. Exit\n");
         printf("5. Clear Screen\n");
         printf("Enter your choice: ");
@@ -135,18 +137,19 @@ start:
                 scanf("%f", &balc);
                 add_info(accno, name, balc);
             }
+            display("CUSTOMER.DAT");
             break;
         case 2:
-            puts("Enter Account No: ");
+            display("CUSTOMER.DAT");
+            break;
+        case 3:
+            puts("\nEnter Account No: ");
             scanf("%d", &accno);
             puts("Enter Transaction Type D = Deposit/ W = Withdrawl: ");
             trans_type = getche();
             puts("Enter Anount: ");
             scanf("%f", &amount);
             update(accno, trans_type, amount);
-            break;
-        case 3:
-            display("CUSTOMER.DAT");
             break;
         case 4:
             exit(0);
