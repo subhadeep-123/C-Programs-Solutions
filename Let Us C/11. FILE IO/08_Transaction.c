@@ -31,7 +31,7 @@ void add_info(int a_num, char *name, float bacl)
     strcpy(acc_holder.name, name);
     acc_holder.balance = bacl;
     fwrite(&acc_holder, sizeof(acc_holder), 1, fs);
-    // fseek(fs, 0, SEEK_END);
+    fseek(fs, 0, SEEK_END);
     fclose(fs);
 }
 void display(char *file)
@@ -125,6 +125,7 @@ start:
         switch (ch)
         {
         case 1:
+        {
             printf("How many records do you want to enter: ");
             scanf("%d", &len);
             for (int i = 0; i < len; i++)
@@ -140,6 +141,7 @@ start:
             }
             display("CUSTOMER.DAT");
             break;
+        }
         case 2:
             display("CUSTOMER.DAT");
             break;
