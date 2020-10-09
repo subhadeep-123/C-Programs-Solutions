@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
-#define LEN 5
+#define LEN 1
 struct employee
 {
     int e_num;
@@ -105,6 +105,7 @@ void update(int s_num, int new_g_sal)
         rename("Temp Records.DAT", "Employee Records.DAT");
     }
 }
+
 int main()
 {
     int i;
@@ -123,7 +124,6 @@ start:
         printf("7. Clear Screen\n");
         printf("Enter Your Choice: ");
         fflush(stdin);
-        // scanf("%d", ch);
         ch = getchar();
         switch (ch)
         {
