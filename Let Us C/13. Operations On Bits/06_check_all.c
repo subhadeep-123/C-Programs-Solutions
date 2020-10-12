@@ -1,16 +1,32 @@
 #include <stdio.h>
-#define _BV(x) (1 << x)
+#include <conio.h>
+#include <stdlib.h>
 
-int dec_to_bin(int n)
-{
-    if (n == 0)
-        return 0;
-    else
-        return (n % 2 + 10 * dec_to_bin(n / 2));
-}
+#define _BV(x) 1 << x
+
+int checkbits(int, int, int);
+
 int main()
 {
-    int bin;
-    unsigned char num = 20;
-    bin = dec_to_bin(num);
+    int status;
+    status = checkbits(14, 3, 3);
+    system("cls");
+    if (status)
+        printf("Required bits are ON\n");
+    else
+        printf("Required bits are OFF\n");
+    _getch();
+    return 0;
+}
+
+int checkbits(int x, int p, int n)
+{
+    unsigned int andmask = 0;
+    int i, j;
+    for (i = 0, j = p; i < n; i++, j--)
+        andmask |= _BV(j);
+    if ((x & andmask) == andmask)
+        return 1;
+    else
+        return 0;
 }
