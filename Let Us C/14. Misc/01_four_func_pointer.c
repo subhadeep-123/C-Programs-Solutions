@@ -1,50 +1,48 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <conio.h>
-int one(int a, int b)
-{
-    return (float)(a / b);
-}
-int two(int a, int b)
-{
-    return (float)(a * b) / 4;
-}
-int three(int a, int b)
-{
-    return (float)(a + b) * 2.5;
-}
-int four(int a, int b)
-{
-    return (float)(a - b) * 4.5;
-}
+
+float one(int, int);
+float two(int, int);
+float three(int, int);
+float four(int, int);
 
 int main()
 {
-    int *arr[4];
-    int i;
-    system("cls");
-
-    //Checking Before Initializing
-    printf("One - %u", one);
-    printf("Two - %u", two);
-    printf("Three - %u", three);
-    printf("Four - %u", four);
-
-    void (*func_ptr1)();
-    func_ptr1 = one;
-    void (*func_ptr2)();
-    func_ptr2 = two;
-    void (*func_ptr3)();
-    func_ptr3 = three;
-    void (*func_ptr4)();
-    func_ptr4 = four;
-
-    //Invoking and Displaying
-    printf("One - %u", func_ptr1);
-    printf("Two - %u", func_ptr2);
-    printf("Three - %u", func_ptr3);
-    printf("Four - %u", func_ptr4);
-
-    getch();
+    float (*ptr[4])(int, int);
+    float a, b, c, d;
+    ptr[0] = one;
+    ptr[1] = two;
+    ptr[2] = three;
+    ptr[3] = four;
+    a = ptr[0](1, 2);
+    b = ptr[1](2, 4);
+    c = ptr[2](6, 3);
+    d = ptr[3](22, 7);
+    printf("a : %f\tb : %f\n", a, b);
+    printf("c : %f\td : %f\n", c, d);
+    _getch();
     return 0;
+}
+float one(int a, int b)
+{
+    float r;
+    r = (float)a / b;
+
+    return r;
+}
+float two(int x, int y)
+{
+    float ans;
+    ans = (float)x / y;
+    return ans;
+}
+float three(int i, int j)
+{
+    float a;
+    a = (float)i / j;
+    return a;
+}
+float four(int m, int n)
+{
+    return ((float)m / n);
 }
