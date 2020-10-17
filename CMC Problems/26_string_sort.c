@@ -28,11 +28,7 @@ int main()
     for (int i = 0; i < len(name) - 1; i++)
         for (int j = i + 1; j < len(name); j++)
             if (name[i] > name[j])
-            {
-                temp = name[i];
-                name[i] = name[j];
-                name[j] = temp;
-            }
+                swap(&name[i], &name[j]);
     puts(name);
     getch();
     return 0;
