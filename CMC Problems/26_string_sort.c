@@ -15,6 +15,7 @@ void swap(char *a, char *b)
     *a = *b;
     *b = temp;
 }
+
 void sort(char name[])
 {
     for (int i = 0; i < len(name) - 1; i++)
