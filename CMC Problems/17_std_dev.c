@@ -16,7 +16,6 @@ int square(int val)
 {
     return val * val;
 }
-int power();
 int main()
 {
     int val[5], std;
