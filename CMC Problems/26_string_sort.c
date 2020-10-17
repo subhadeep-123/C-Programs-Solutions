@@ -15,6 +15,13 @@ void swap(char *a, char *b)
     *a = *b;
     *b = temp;
 }
+void sort(char name[])
+{
+    for (int i = 0; i < len(name) - 1; i++)
+        for (int j = i + 1; j < len(name); j++)
+            if (name[i] > name[j])
+                swap(&name[i], &name[j]);
+}
 int main()
 {
     char name[20], temp;
@@ -25,10 +32,7 @@ int main()
     printf("Before Sorting: ");
     puts(name);
     printf("Afer Sorting: ");
-    for (int i = 0; i < len(name) - 1; i++)
-        for (int j = i + 1; j < len(name); j++)
-            if (name[i] > name[j])
-                swap(&name[i], &name[j]);
+    sort(name);
     puts(name);
     getch();
     return 0;
