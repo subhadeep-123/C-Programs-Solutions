@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-#define LEN 3
+#define LEN 10
 typedef struct emp
 {
     char name[20];
