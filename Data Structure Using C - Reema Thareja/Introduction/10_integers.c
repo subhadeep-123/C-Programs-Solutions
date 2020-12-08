@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <conio.h>
 #include <stdlib.h>
-int main(void)
+int main()
 {
     int *ptr;
     unsigned short int i, len;
@@ -23,4 +24,8 @@ int main(void)
             printf(",\n");
             continue;
         }
+    free(ptr);
+    printf("\nEnter anything to exit..");
+    getch();
+    return 0;
 }
